@@ -12,5 +12,6 @@ export enum Queries {
     WIPE = 256,
     INHERIT = 512,
     DELETE = 1024,
+    ABSORB = 2048,
 
 }
