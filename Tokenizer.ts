@@ -42,15 +42,7 @@ export class Tokens {
                 continue
             } word += c[i]
         }
-
-
-
-
-
         return words
-
-
-
     }
 
 

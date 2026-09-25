@@ -27,7 +27,6 @@ export class Query {
             case ("WIPE"): return table.wipe()
             case ("ABSORB"): return table.absorb(Query[1].records!)
         }
-
         throw new Error(`Action ${Query[0]} not in store . SEE Queries `)
     }
 
@@ -58,41 +57,41 @@ export class Query {
     add_tables<RecordSchema>(table_names: string[]) { table_names.forEach((v) => this.#DB.declare_table<RecordSchema>(v)) }
 }
 
-const DB = new Database()
-const Query_client = new Query(DB);
-type Users = {
-    name: string,
-    id: number
-}
-Query_client.add_table("USERS")
+// const DB = new Database()
+// const Query_client = new Query(DB);
+// type Users = {
+//     name: string,
+//     id: number
+// }
+// Query_client.add_table("USERS")
 
-Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
-Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
-Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
-Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
-Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
-Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
-Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
-Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
-Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
-Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
-Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
-
-
-console.log(Query_client.query_table<Users>("update_all        into  USERS  .. .. ", { where: (rec) => rec.id < 14, call_back: (rec) => { rec.name = "BOTS NI MSHENZI " } }))
-console.log(Query_client.query_table("select_all        from  USERS "))
+// Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
+// Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
+// Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
+// Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
+// Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
+// Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
+// Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
+// Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
+// Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
+// Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
+// Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
 
 
-// [
-//   { id: 4.058930477642997, name: 'BOTS NI MSHENZI ' },
-//   { id: 16.567265083808394, name: 'HUDSON' },
-//   { id: 6.9718559360504875, name: 'BOTS NI MSHENZI ' },
-//   { id: 11.596134722898196, name: 'BOTS NI MSHENZI ' },
-//   { id: 17.690735668897382, name: 'HUDSON' },
-//   { id: 6.51998093180944, name: 'BOTS NI MSHENZI ' },
-//   { id: 20.02108888910648, name: 'HUDSON' },
-//   { id: 19.84149452496155, name: 'HUDSON' },
-//   { id: 14.58301489454473, name: 'HUDSON' },
-//   { id: 17.39067902192524, name: 'HUDSON' },
-//   { id: 2.1825535415947366, name: 'BOTS NI MSHENZI ' }
-// ]
+// console.log(Query_client.query_table<Users>("update_all        into  USERS  .. .. ", { where: (rec) => rec.id < 14, call_back: (rec) => { rec.name = "BOTS NI MSHENZI " } }))
+// console.log(Query_client.query_table("select_all        from  USERS "))
+
+
+// // [
+// //   { id: 4.058930477642997, name: 'BOTS NI MSHENZI ' },
+// //   { id: 16.567265083808394, name: 'HUDSON' },
+// //   { id: 6.9718559360504875, name: 'BOTS NI MSHENZI ' },
+// //   { id: 11.596134722898196, name: 'BOTS NI MSHENZI ' },
+// //   { id: 17.690735668897382, name: 'HUDSON' },
+// //   { id: 6.51998093180944, name: 'BOTS NI MSHENZI ' },
+// //   { id: 20.02108888910648, name: 'HUDSON' },
+// //   { id: 19.84149452496155, name: 'HUDSON' },
+// //   { id: 14.58301489454473, name: 'HUDSON' },
+// //   { id: 17.39067902192524, name: 'HUDSON' },
+// //   { id: 2.1825535415947366, name: 'BOTS NI MSHENZI ' }
+// // ]
