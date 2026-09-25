@@ -1,17 +1,17 @@
 
 
 export enum Queries {
-    SELECT_ALL = 1,
-    SELECT_ONCE = 2,
-    UPDATE_ALL = 4,
-    UPDATE_ONCE = 8,
-    INSERT = 16,
-    INSERT_IF_SOME = 32,
-    INSERT_IF_EVERY = 64,
-    SET = 128,
-    WIPE = 256,
-    INHERIT = 512,
-    DELETE = 1024,
-    ABSORB = 2048,
+    DELETE = "DELETE",
+    INHERIT = "INHERIT",
+    INSERT = "INSERT",
+    INSERT_IF_EVERY = "INSERT_IF_EVERY",
+    INSERT_IF_SOME = "INSERT_IF_SOME",
+    SELECT_ALL = "SELECT_ALL",
+    SELECT_ONCE = "SELECT_ONCE",
+    SET = "SET",
+    UPDATE_ALL = "UPDATE_ALL",
+    UPDATE_ONCE = "UPDATE_ONCE",
+    WIPE = "WIPE",
+    ABSORB = "ABSORB",
 
 }

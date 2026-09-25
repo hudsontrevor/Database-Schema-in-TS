@@ -20,7 +20,7 @@ export class Table<RecordSchema> {
      * @param call_back a call back to execute on all items . Return a boolean value which is reflected back to if any modifiv=cation occured 
      * @returns true if modification occured 
      */
-    readonly update_all = (call_back: (record: RecordSchema) => boolean): boolean => { let is_updated: boolean = false; this.#records.map((record) => { let c = call_back(record); is_updated = !is_updated ? c : true; return record }); return is_updated }
+    readonly update_all = (call_back: (record: RecordSchema) => boolean, where: (record: RecordSchema) => boolean): boolean => { let is_updated: boolean = false; this.#records.map((record) => { if (!where(record)) { return }; let c = call_back(record); is_updated = !is_updated ? c : true; return record }); return is_updated }
     /**
      * updates the first occurence 
      * @param callback on all items/records that return a bool value signalling halting of further itteration if true 
@@ -36,7 +36,7 @@ export class Table<RecordSchema> {
      */
     readonly select_all = (evalate: (record: RecordSchema) => boolean): RecordSchema[] => this.#records.filter((v) => evalate(v))
 
-    /**
+    /** 
      * Selects the first occurence of an element matching the criteria 
      * @param evalate a call back to elements to specify your criteria and to signal halt of further cruteria if return is true 
      * @returns element  
