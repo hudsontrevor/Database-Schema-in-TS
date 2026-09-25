@@ -58,29 +58,29 @@ export class Query {
     add_tables<RecordSchema>(table_names: string[]) { table_names.forEach((v) => this.#DB.declare_table<RecordSchema>(v)) }
 }
 
-// const DB = new Database()
-// const Query_client = new Query(DB);
-// type Users = {
-//     name: string,
-//     id: number
-// }
-// Query_client.add_table("USERS")
+const DB = new Database()
+const Query_client = new Query(DB);
+type Users = {
+    name: string,
+    id: number
+}
+Query_client.add_table("USERS")
 
-// Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
-// Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
-// Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
-// Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
-// Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
-// Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
-// Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
-// Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
-// Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
-// Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
-// Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
+Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
+Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
+Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
+Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
+Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
+Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
+Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
+Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
+Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
+Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
+Query_client.query_table<Users>("INSERT into USERS ", { record: { id: 23 * Math.random(), name: "HUDSON" } })
 
 
-// console.log(Query_client.query_table<Users>("update_all        into  USERS ", { where: (rec) => rec.id < 14, call_back: (rec) => { rec.name = "BOTS NI MSHENZI " } }))
-// console.log(Query_client.query_table("select_all        from  USERS "))
+console.log(Query_client.query_table<Users>("update_all        into  USERS  .. .. ", { where: (rec) => rec.id < 14, call_back: (rec) => { rec.name = "BOTS NI MSHENZI " } }))
+console.log(Query_client.query_table("select_all        from  USERS "))
 
 
 // [
