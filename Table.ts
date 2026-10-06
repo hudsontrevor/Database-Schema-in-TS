@@ -34,7 +34,7 @@ export class Table<RecordSchema> {
      * @param evalate a call back to elements to specify your criteria 
      * @returns elemants[]
      */
-    readonly select_all = (evalate: (record: RecordSchema) => boolean): RecordSchema[] => this.#records.filter((v) => evalate(v))
+    readonly select_all = (evalate: (record: RecordSchema) => boolean, call_back: (record: RecordSchema) => void): RecordSchema[] => this.#records.filter((v) => { if (evalate(v)) { call_back(v); return true } return false })
 
     /** 
      * Selects the first occurence of an element matching the criteria 

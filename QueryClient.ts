@@ -19,7 +19,7 @@ export class Query {
             case ("INSERT"): return table.add_record(Query[1].record!)
             case ("INSERT_IF_EVERY"): return table.add_if_every(Query[1].record!, Query[1].where!)
             case ("INSERT_IF_SOME"): return table.add_if_some(Query[1].record!, Query[1].where!)
-            case ("SELECT_ALL"): return table.select_all(Query[1].where ? Query[1].where : () => true)
+            case ("SELECT_ALL"): return table.select_all(Query[1].where ? Query[1].where : () => true, Query[1].call_back!)
             case ("SELECT_ONCE"): return table.select_once(Query[1].where!)
             case ("SET"): return table.set(Query[1].record!)
             case ("UPDATE_ALL"): return table.update_all(Query[1].call_back!, Query[1].where ? Query[1].where : () => true)
@@ -27,8 +27,9 @@ export class Query {
             case ("WIPE"): return table.wipe()
             case ("ABSORB"): return table.absorb(Query[1].records!)
         }
-        throw new Error(`Action ${Query[0]} not in store . SEE Queries `)
+        throw new Error(`Action ${Query[0]} not in store . SEE Queries  ${Queries} `)
     }
+
 
     /**
      * 
