@@ -1,4 +1,5 @@
 
+import { DB } from "./db_namespace"
 
 export enum Queries {
     DELETE = "DELETE",
