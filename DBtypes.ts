@@ -30,5 +30,5 @@ export type query<T> = [Queries, string, {
      * @param record to act upon 
      */
 
-    call_back?: (record: T) => any
+    call_back?: (record: T) => boolean | any
 }]

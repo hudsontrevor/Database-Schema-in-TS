@@ -37,7 +37,7 @@ export class Tokens {
         for (let i = 0; i < c.length; i++) {
             if (c[i] == " ") {
                 if (!word) { continue }
-                words.push(word)
+                words.push(word.toUpperCase())
                 word = ""
                 continue
             } word += c[i]

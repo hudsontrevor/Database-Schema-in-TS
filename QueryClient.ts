@@ -8,8 +8,8 @@ import { Tokens } from "./Tokenizer";
  * Aids in querying tables
  */
 export class Query {
-    #DB: Database;
-    constructor(db: Database) {
+    #DB: Database | undefined;
+    constructor(db?: Database) {
         this.#DB = db
     }
     private match<RecordSchema>(table: Table<RecordSchema>, Query: [Queries, query<RecordSchema>[2]]) {
@@ -19,7 +19,7 @@ export class Query {
             case ("INSERT"): return table.add_record(Query[1].record!)
             case ("INSERT_IF_EVERY"): return table.add_if_every(Query[1].record!, Query[1].where!)
             case ("INSERT_IF_SOME"): return table.add_if_some(Query[1].record!, Query[1].where!)
-            case ("SELECT_ALL"): return table.select_all(Query[1].where ? Query[1].where : () => true, Query[1].call_back!)
+            case ("SELECT_ALL"): return table.select_all(Query[1].where ? Query[1].where : () => true, Query[1].call_back || (() => true))
             case ("SELECT_ONCE"): return table.select_once(Query[1].where!)
             case ("SET"): return table.set(Query[1].record!)
             case ("UPDATE_ALL"): return table.update_all(Query[1].call_back!, Query[1].where ? Query[1].where : () => true)
@@ -36,10 +36,10 @@ export class Query {
      * @param query to execute
      * @returns appropriate  to the query 
      */
-    query_table<RecordSchema>(query: string, details?: query<RecordSchema>[2]) {
+    query_table<RecordSchema>(query: string, details?: query<RecordSchema>[2], table?: Table<RecordSchema>): any {
         try {
-            let Qry = Tokens.tokenize(query)
-            return this.match(this.#DB.get_table_assert<RecordSchema>(Qry.table), [Qry.action as Queries, details || {}])
+            let Qry = Tokens.tokenize(query + " ")
+            return this.match<RecordSchema>(table || this.#DB?.get_table_assert<RecordSchema>(Qry.table)!, [Qry.action as Queries, details || {}])
         } catch (error) {
             console.log(styleText("bgRedBright", "ERROR :  "), styleText("redBright", `${error}`))
         }
@@ -48,14 +48,14 @@ export class Query {
      * adds a table to the DB
      * @param table_name of table to add 
      */
-    add_table<RecordSchema>(table_name: string) { this.#DB.declare_table<RecordSchema>(table_name) }
+    add_table<RecordSchema>(table_name: string) { this.#DB?.declare_table<RecordSchema>(table_name) }
 
 
     /**
      * adds  tables  to the DB
      * @param table_names  to add 
      */
-    add_tables<RecordSchema>(table_names: string[]) { table_names.forEach((v) => this.#DB.declare_table<RecordSchema>(v)) }
+    add_tables<RecordSchema>(table_names: string[]) { table_names.forEach((v) => this.#DB?.declare_table<RecordSchema>(v)) }
 }
 
 // const DB = new Database()
