@@ -11,13 +11,13 @@ export class Table<RecordSchema> {
     #records: RecordSchema[] = []
     /**
      * 
-     * @returns length of record 
+     * @returns length of record
      */
     readonly logs_length = (): number => this.#records.length
     // update 
     /**
      * updates all elements 
-     * @param call_back a call back to execute on all items . Return a boolean value which is reflected back to if any modifiv=cation occured 
+     * @param call_back a call back to execute on all items . Return a boolean value indicating whether modification occured 
      * @returns true if modification occured 
      */
     readonly update_all = (call_back: (record: RecordSchema) => boolean, where: (record: RecordSchema) => boolean): boolean => { let is_updated: boolean = false; this.#records.map((record) => { if (!where(record)) { return record }; let c = call_back(record); is_updated = !is_updated ? c : true; return record }); return is_updated }
@@ -32,19 +32,19 @@ export class Table<RecordSchema> {
     /**
      * Selects all element by the criteria 
      * @param evalate a call back to elements to specify your criteria 
-     * @returns elemants[]
+     * @returns `elements[]` metting the criteria 
      */
     readonly select_all = (evalate: (record: RecordSchema) => boolean, call_back: (record: RecordSchema) => void): RecordSchema[] => this.#records.filter((v) => { if (evalate(v)) { call_back(v); return true } return false })
 
     /** 
      * Selects the first occurence of an element matching the criteria 
-     * @param evalate a call back to elements to specify your criteria and to signal halt of further cruteria if return is true 
+     * @param evalate a call back to elements to specify your criteria and to signal halt of further lookup if it returns true 
      * @returns element  
      */
     readonly select_once = (evalate: (record: RecordSchema) => boolean): RecordSchema | null => { let s = 0; let e = this.#records.length - 1; while (s <= e) { let hold: boolean[] = [s, e].flatMap((v) => evalate(this.#records[v])); if (hold[1] || hold[0]) { return hold[0] ? this.#records[s] : this.#records[e] }; s++; e-- } return null }
     // write 
     /**
-     * Adds a record 
+     * Adds a record to the table 
      * @param record record to add 
      * @returns record added 
      */
@@ -54,7 +54,7 @@ export class Table<RecordSchema> {
      * Adds a record if some existing records meet the criteria provided
      * @param record record to add 
      * @param evaluate call back to all elements that returns a bool to gauge criteria for selection if some elements hold up to the creteria 
-     * @returns 
+     * @returns a boolean indicating whether the item was added
      */
     readonly add_if_some = (record: RecordSchema, evaluate: (record_: RecordSchema) => boolean): boolean => { if (this.#records.some((v) => evaluate(v))) { this.#records.push(record); return true }; return false }
 
@@ -62,12 +62,12 @@ export class Table<RecordSchema> {
      * Adds a record if every  existing record meets the criteria provided
      * @param record record to add 
      * @param evaluate call back to all elements that returns a bool to gauge criteria for selection if every  element holds up to the creteria 
-     * @returns 
+     * @returns a boolean indicating whether the item was added
      */
     readonly add_if_every = (record: RecordSchema, evaluate: (record_: RecordSchema) => boolean): boolean => { if (this.#records.every((v) => evaluate(v))) { this.#records.push(record); return true }; return false }
 
     /**
-     * adds an element if no other element present matches its signature - compares in stringified form 
+     * adds an element if no other element present matches its signature - compares in stringified form. for detailed comparison use `add_if_every`
      * @param record record to add
      * @returns 
      */
@@ -99,7 +99,7 @@ export class Table<RecordSchema> {
      * @param evaluate a call back which returns true or false to either remove the element  or not  respectively 
      * @returns 
      */
-    readonly delete = (evaluate: (record: RecordSchema) => boolean): boolean => { let done: boolean = false; this.#records = this.#records.filter((v) => { let ev = evaluate(v); if (ev) { done = true }; return ev }); return done }
+    readonly delete = (evaluate: (record: RecordSchema) => boolean): boolean => { let done: boolean = false; this.#records = this.#records.filter((v) => { let ev = evaluate(v); if (ev) { done = true }; return !ev }); return done }
 
 };
 

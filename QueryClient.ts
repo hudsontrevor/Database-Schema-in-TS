@@ -38,7 +38,7 @@ export class Query {
      */
     query_table<RecordSchema>(query: string, details?: query<RecordSchema>[2], table?: Table<RecordSchema>): any {
         try {
-            let Qry = Tokens.tokenize(query + " ")
+            let Qry = Tokens.tokenize(query)
             return this.match<RecordSchema>(table || this.#DB?.get_table_assert<RecordSchema>(Qry.table)!, [Qry.action as Queries, details || {}])
         } catch (error) {
             console.log(styleText("bgRedBright", "ERROR :  "), styleText("redBright", `${error}`))

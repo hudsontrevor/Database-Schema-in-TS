@@ -9,7 +9,7 @@ export class Tokens {
 
 
     static tokenize(query_: string): { action: string, table: string } {
-        let query: string[] = [...query_]
+        let query: string[] = [...query_ + " "]
         query = this.construct(query);
         if (!["into", "from"].includes(query[1].toLowerCase())) {
             throw new Error(`Expected  readability modifier 'from' or 'into' instead saw ' ${query[1]}' at query '${query_}'`)
