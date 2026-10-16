@@ -76,5 +76,3 @@ export class Database {
 
 // DB.get_table_assert<Users>("USERS")
 
-
-// we can impliment a token nizer 

@@ -5,12 +5,14 @@ import { Table } from "./Table";
 
 export type query<T> = [Queries, string, {
     /**
-     * executes a callback to each item in store returning those where call_back evaluates to true 
-     * used in select_* , delete , insert_* and update statement 
+     * executes a callback fn  to each item in store qualifying each for a particullar query.  
+     * used in select_* , delete , insert_* and update statements 
      * @param record each individual record in store 
+     * @param index of record 
+     * @param table list of all records in array 
      * @returns 
      */
-    where?: (record: T) => boolean,
+    where?: (record: T, index: number, table: T[]) => boolean,
     /**
      * record to add in insert and the set statements 
     */
@@ -61,7 +63,17 @@ export interface ManagerOptions<T> {
     /**
      * list of queries to be executed 
      */
-    queries: (query_<T> & {
+    queries: ({
+        /**
+         * details to the query 
+         */
+        details: query_<T>["details"],
+
+        // Table manager has ref to table thus will fil in extra values 
+        /**
+         *Standard Queries for Table manager 
+         */
+        query: Queries
         /**
          *  after how long to execute this query `rounded of to the nearest interval_between_snooze` that is `Math.round(after/interval_between_snooze)`
          */
@@ -80,3 +92,5 @@ export interface ManagerOptions<T> {
      */
     on_this_thread?: boolean
 }
+
+

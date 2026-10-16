@@ -26,6 +26,6 @@ export const work = <T>(queries: worker_query<T>, table_?: Table<T>): T[] => {
     queries.queries.forEach((qry) => {
         blindQueryClient.query_table<T>(qry.query, qry.details, table)
     })
-    return table.select_all(() => true, () => true)
+    return table.clone()
 }
 

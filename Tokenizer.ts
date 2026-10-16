@@ -12,7 +12,7 @@ export class Tokens {
         let query: string[] = [...query_ + " "]
         query = this.construct(query);
         if (!["into", "from"].includes(query[1].toLowerCase())) {
-            throw new Error(`Expected  readability modifier 'from' or 'into' instead saw ' ${query[1]}' at query '${query_}'`)
+            throw new Error(`Expected  readability modifier 'from' or 'into' after ${query[0]}, instead saw ' ${query[1]}' at query '${query_}'`)
         }
         if (query.length > 4) {
             console.log(styleText("yellowBright", ` TOO MANY TOKENS IN QUERY --'${query_}  '

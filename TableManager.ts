@@ -1,16 +1,28 @@
-import { Worker } from "node:worker_threads";
+import { Transferable, Worker } from "node:worker_threads";
 import { ManagerOptions, query, worker_query } from "./DBtypes";
-import { Query } from "./QueryClient";
 import { Table } from "./Table";
 import { work } from "./Manager";
 
 /**
  * Manages a table, repeatedly executing queries to that table after an interval, either on this thread or on another if specified as such 
  */
+
+
+export class TableWorker extends Worker {
+    constructor(file_name: string | URL, options?: WorkerOptions) {
+        super(file_name, options);
+    }
+
+    send_task<T>(value: worker_query<T>, transferList?: readonly Transferable[]): void {
+        this.postMessage(value, transferList)
+    }
+}
+
+
 export class ManageTable<T> {
-    #queries: (ManagerOptions<T>["queries"][1] & { readonly ref: number })[];
+    #queries: (ManagerOptions<T>["queries"][0] & { readonly ref: number })[];
     #table: Table<T>;
-    static #worker: Worker | undefined;
+    static #worker: TableWorker | undefined;
     readonly get_worker = () => ManageTable.#worker
     /**
      * 
@@ -21,9 +33,9 @@ export class ManageTable<T> {
      */
     constructor(
         table: Table<T>,
-        manager_options: ManagerOptions<T> = { queries: [], interval_between_snooze: 5000, on_this_thread: true },
+        manager_options: ManagerOptions<T> = { queries: [], interval_between_snooze: 15000, on_this_thread: true },
 
-        read_from: string = "Manager.ts"
+        read_from: string = "./DatabaseTS/Manager.ts"
     ) {
         this.#queries = manager_options.queries.flatMap((query) => { let hold = Math.round(query.after / manager_options.interval_between_snooze!); return { ...query, after: hold, ref: hold } });
         this.#table = table
@@ -33,12 +45,12 @@ export class ManageTable<T> {
         }
 
         if (!ManageTable.#worker) {
-            ManageTable.#worker = new Worker(read_from)
+            ManageTable.#worker = new TableWorker(read_from)
 
             ManageTable.#worker.on("error", (err) => {
                 console.log("Error in worker. Table manager ", err)
                 ManageTable.#worker?.terminate().finally(() => {
-                    ManageTable.#worker = new Worker(read_from)
+                    ManageTable.#worker = new TableWorker(read_from)
                 })
             })
 
@@ -63,7 +75,7 @@ export class ManageTable<T> {
                     query.after--
                     return query
                 }
-                bundle.queries.push({ query: query.query, details: query.details })
+                bundle.queries.push({ query: query.query + " into " + this.#table.get_name(), details: query.details })
                 if (!query.always) {
                     this.#queries = this.#queries.filter((query_) => JSON.stringify(query) != JSON.stringify(query_))
                     return query
@@ -78,8 +90,8 @@ export class ManageTable<T> {
                 return
             }
 
-            bundle.records = [...this.#table.select_all(() => true, () => true)]
-            ManageTable.#worker?.postMessage(bundle)
+            bundle.records = [...this.#table.clone()]
+            ManageTable.#worker?.send_task(bundle);
             ManageTable.#worker?.on("message", (new_records: T[]) => {
                 this.#table.wipe()
                 this.#table.absorb(new_records)
