@@ -112,26 +112,26 @@ export class Table<RecordSchema> {
 };
 
 
-interface Usr {
-    name: string,
-    id: number
-}
-let table: Table<Usr> = new Table("A table ")
+// interface Usr {
+//     name: string,
+//     id: number
+// }
+// let table: Table<Usr> = new Table("A table ")
 
-table.absorb([
+// table.absorb([
 
-    { id: 12, name: "rada" },
-    { id: 12, name: "rada" },
-    { id: 12, name: "rada" },
-    { id: 12, name: "rada" },
-])
+//     { id: 12, name: "rada" },
+//     { id: 12, name: "rada" },
+//     { id: 12, name: "rada" },
+//     { id: 12, name: "rada" },
+// ])
 
 
-console.log(table.clone())
+// console.log(table.clone())
 
-table.set(
-    { id: 12, name: "rada" }
-)
-console.log(table.select_all(() => true, () => true))
+// table.set(
+//     { id: 12, name: "rada" }
+// )
+// console.log(table.select_all(() => true, () => true))
 
 
