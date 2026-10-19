@@ -104,10 +104,6 @@ export interface ManagerOptions<T> {
 
 
 
-
-
-
-
 }
 
 
@@ -121,10 +117,14 @@ type PoolOPtions = {
         /**
          * let the table manager  gauge when traffic is low to reboot a worker 
          */
-        auto_recovery: false,
+        auto_recovery: boolean,
         recover_worker?: Promise<null>
     }
 }
+
+
+
+
 
 export type query_simple<T> = {
     /**

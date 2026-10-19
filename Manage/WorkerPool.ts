@@ -1,5 +1,5 @@
-import { worker_query } from "./DBtypes";
-import { TableWorker } from "./TableManager";
+import { worker_query } from "../DBtypes";
+import { TableWorker } from "./TableWorker";
 
 export class WorkerPool<Tasks extends worker_query<any>, Output extends any[]> {
 

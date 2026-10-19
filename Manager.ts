@@ -15,7 +15,8 @@ const blindQueryClient = new Query()
 if (parentPort) {
     parentPort.on("message", <T>(queries: hold<T>) => {
         console.log(
-            styleText("bgCyanBright", ` ---------------------------------- CVVFSGGGS ${queries.queries}`)
+            styleText("bgCyanBright", ` ---------------------------------- CVVFSGGGS ${queries.queries}`),
+            queries.queries
         )
         parentPort?.postMessage(work(procces_tasks(queries)))
     })
