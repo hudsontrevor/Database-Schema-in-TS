@@ -13,3 +13,4 @@
     [text](./TableManager.ts)
 
 
+# things are stored on mem 

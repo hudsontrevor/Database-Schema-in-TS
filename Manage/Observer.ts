@@ -28,7 +28,7 @@ export class Observer {
             this.rate = this.#requests / 60
             this.#requests = 0;
             this.#rates.push(this.rate)
-            let events_ = this.listen_for_gauge_events()
+            let events_ = this.#listen_for_gauge_events()
             records.forEach((v) => {
                 if (events_.includes(v.event_)) {
                     v.call()
@@ -67,7 +67,7 @@ export class Observer {
 
 
     //  listen for gauge =Events 
-    listen_for_gauge_events(): GaugeEvent[] {
+    #listen_for_gauge_events(): GaugeEvent[] {
 
         let gauge_events: GaugeEvent[] = [];
 
@@ -112,7 +112,7 @@ export class Observer {
         })
         return this
     }
-    on_rate: number | undefined
+    private on_rate: number | undefined
     on(GaugeEvent: GaugeEvent, execute: () => any, rate?: number): this {
         if (GaugeEvent == "ON_RATE") { this.on_rate = rate }
         this.clock.add_to_queue({ after: this.clock.INTERVAL(), always: false, records: { event_: GaugeEvent, call: execute } })
@@ -170,45 +170,5 @@ type Stats = {
     peak: string
     lowest: string
 }
-
-
-
-
-// function split_2(args: number[]) {
-//     let _args = args.sort();
-//     let at = (_args.length & 1) == 1 ? Math.trunc(_args.length / 2) + 1 : args.length / 2
-
-//     return [_args.slice(0, at), _args.slice(at, _args.length)]
-// }
-
-// const Q2 = (args: number[]): number => {
-//     let hold = split_2(args);
-
-//     // console.log((hold[0].find((_, i, obj) => i == obj.length - 1)! + hold[1].find((_, i, obj) => i == obj.length - 1)!) / 2, "jdjdj", hold)
-
-//     if (hold[0].length == hold[1].length) {
-//         console.log("HIERACHY")
-//         return (hold[0].find((_, i, obj) => i == (obj.length - 1))! + hold[1][0]) / 2
-//     }
-//     return hold[0].find((_, i, obj) => i == obj.length - 1)!
-// }
-
-
-// let Q1_Q3 = (args: number[]): { "Q1": number, "Q3": number } => {
-//     let hold = split_2(args)
-//     return {
-//         Q1: Q2(hold[0].length != hold[1].length ? hold[0].slice(0, hold[0].length) : hold[0]),
-//         Q3: Q2(hold[1])
-//     }
-// }
-
-// console.log(
-//     split_2([1, 2, 4, 5, 6, 7, 8, 9, 0, 9, 8, 7, 7, 6, 5, 4, 3]),
-//     Q2([1, 2, 4, 5, 6, 7, 8, 9, 0, 9, 8, 7, 7, 6, 5, 4, 3]),
-
-//     Q1_Q3([1, 2, 3, 4, 5, 6]),
-//     Q2([0, 1, 2, 3, 4, 5, 6]),
-//     Q2([0, 1, 2])
-// )
 
 

@@ -50,6 +50,7 @@ export class ManageTable<T> {
         this.interval = (manager_options.interval_between_snooze || 15) * 1000
         this.#queries = manager_options.queries.flatMap((query) => this.format_query(query));
 
+
         if (!(manager_options.on_this_thread || ManageTable.#worker || WorkerPool.instance)) {
             if (manager_options.use_worker_pool == false) {
                 ManageTable.#worker = new TableWorker(read_from)

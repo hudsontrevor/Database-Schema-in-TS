@@ -1,5 +1,6 @@
 import { worker_query, hold } from "../DBtypes";
-import { Worker, Transferable } from "worker_threads"
+import { Worker, Transferable } from "worker_threads";
+
 
 
 interface WorkersInternalState {

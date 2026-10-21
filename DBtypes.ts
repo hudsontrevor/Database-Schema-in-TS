@@ -117,7 +117,7 @@ type PoolOPtions = {
         /**
          * let the table manager  gauge when traffic is low to reboot a worker 
          */
-        auto_recovery: boolean,
+        // auto_recovery: boolean,
         recover_worker?: Promise<null>
     }
 }

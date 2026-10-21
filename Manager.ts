@@ -33,7 +33,7 @@ export const work = <T>(queries: worker_query<T>, table_?: Table<T>): T[] => {
         table.absorb(queries.records!)
     }
     queries.queries.forEach((qry) => {
-        blindQueryClient.query_table<T>(qry.query, qry.details, table)
+        blindQueryClient.query_table<T, any>(qry.query, qry.details, table)
     })
     return table.clone()
 }
